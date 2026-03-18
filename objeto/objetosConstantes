@@ -1,0 +1,20 @@
+const pessoa = { nome: "Jonas Brothers" };
+pessoa.nome = "BackStreetBoys";
+console.log(pessoa);
+
+// pessoa = {nome: "Jackson Five"} //NÃO PODE SOBREESCREVER ASSIM
+
+//Congelando o objeto, não é possivel sobreescrever a const e nem adicionar/remover parametros..
+Object.freeze(pessoa);
+
+pessoa.nome = "Maria";
+pessoa.end = "Rua de trás";
+delete pessoa.nome;
+
+console.log(pessoa.nome);
+console.log(pessoa);
+
+//Exemplo possivél de objeto constante pra nunca ser mudado com freeze.
+const pessoaConstante = Object.freeze({ nome: "Jayjay" });
+pessoaConstante.nome = "Teká"; // Não vai sobreescrever..
+console.log(pessoaConstante);
