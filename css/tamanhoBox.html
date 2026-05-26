@@ -1,17 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Tamanho Box</title>
     <style>
-        body {
-            font-size: 45px;
-        }
+      * {
+        box-sizing: border-box; /*  (*) é o seletor universal */
+      }
+
+      body {
+        font-size: 45px;
+        margin: 0;
+      }
+
+      div {
+        background-color: deepskyblue;
+        width: 600px;
+        height: 300px;
+        padding: 100px;
+        border: solid 20px;
+      }
     </style>
-</head>
-<body>
-    <div>
-        O tamanho do Box é...
-    </div>
-</body>
+  </head>
+  <body>
+    <div>O tamanho do Box é...</div>
+  </body>
 </html>
