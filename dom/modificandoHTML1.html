@@ -1,16 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
-    <meta charset='UTF-8'>
+  <head>
+    <meta charset="UTF-8" />
     <title>Modificando HTML #01</title>
-    <link rel='stylesheet' href='css/estilo.css'>
-</head>
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
 
-<body class='conteudo exercicio'>
+  <body class="conteudo exercicio">
     <script>
-        // ...
-    </script>
-</body>
+      const body = document.querySelector("body");
 
+      const div1 = document.createElement("div");
+      div1.classList.add("destaque");
+      div1.innerHTML = "Primeiro";
+
+      const div2 = document.createElement("div");
+      div2.setAttribute("wm-atributo", "valor");
+      div2.innerHTML = "Segundo";
+
+      const p = document.createElement("p");
+      p.innerHTML = "Terceiro";
+      const div3 = document.createElement("div");
+      div3.appendChild(p);
+
+      // adicionando as alterações no html..
+      body.appendChild(div1);
+      body.appendChild(div2);
+      body.appendChild(div3);
+
+      const texto = document.createTextNode("Antes...");
+      // sendo adicionado antes do "Terceiro"
+      div3.insertBefore(texto, div3.childNodes[0]);
+
+      // clonagem da div3 pro div4
+      const div4 = div3.cloneNode(true);
+      body.appendChild(div4);
+      body.removeChild(div3); // o div3 é eliminado e o div4 toma o lugar
+      // porém ele toma com as cores já colocadas na ordem do estilo.css
+    </script>
+  </body>
 </html>
