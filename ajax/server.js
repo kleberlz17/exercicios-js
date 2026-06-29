@@ -1,4 +1,5 @@
 //NECESSÁRIO PARA O FUNCIONAMENTO DO AJAX
+//AS REQUISIÇÕES UTILIZADAS EM AXIOS, FETCH ETC ESTÃO TODAS AQUI
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
@@ -43,5 +44,14 @@ app.post("/formulario", (req, res) => {
     id: 1,
   });
 });
+
+app.get("/parOuImpar", (req, res) => {
+  const par = parseInt(req.query.numero) % 2 === 0; //numero dividido por 2  com resto 0 é par
+  //caso contrário é impar
+  res.send({
+    resultado: par ? "par" : "impar",
+  });
+});
+
 //startando servidor..
 app.listen(8080, () => console.log("Executando..."));
