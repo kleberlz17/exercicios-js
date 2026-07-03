@@ -10,14 +10,14 @@
   "author": "Cod3r",
   "license": "ISC",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^0.0.0",
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
     "gulp": "^5.0.1",
-    "gulp-babel": "7.0.1",
+    "gulp-babel": "^8.1.0",
     "gulp-concat": "2.6.1",
     "gulp-sass": "5.0.0",
+    "gulp-terser": "^2.1.0",
     "gulp-typescript": "4.0.2",
-    "gulp-uglify": "3.0.0",
     "gulp-uglifycss": "^1.1.0",
     "typescript": "2.8.3"
   }
