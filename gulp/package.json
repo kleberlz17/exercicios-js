@@ -19,6 +19,7 @@
     "gulp-terser": "^2.1.0",
     "gulp-typescript": "4.0.2",
     "gulp-uglifycss": "^1.1.0",
+    "sass": "^1.101.0",
     "typescript": "2.8.3"
   }
 }
