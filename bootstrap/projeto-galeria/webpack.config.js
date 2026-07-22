@@ -1,53 +1,76 @@
-const modoDev = process.env.NODE_ENV !== 'production'
-const webpack = require('webpack')
+const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+
+const modoDev = process.env.NODE_ENV !== 'production'
 
 module.exports = {
     mode: modoDev ? 'development' : 'production',
+
     entry: './src/index.js',
-    devServer: {
-        contentBase: './build',
-        port: 9000,
-    },
-    optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: true
-            }),
-            new OptimizeCSSAssetsPlugin({})
-        ]
-    },
+
     output: {
         filename: 'app.js',
-        path: __dirname + '/build'
+        path: path.resolve(__dirname, 'build'),
+        clean: true
     },
+
+    devServer: {
+        static: {
+            directory: path.resolve(__dirname, 'build')
+        },
+        port: 9000,
+        open: true
+    },
+
+    optimization: {
+        minimize: !modoDev,
+        minimizer: [
+            new TerserPlugin(),
+            new CssMinimizerPlugin()
+        ]
+    },
+
     plugins: [
-        new MiniCssExtractPlugin({ filename: 'estilo.css' }),
-        new CopyWebpackPlugin([
-            { context: 'src/', from: '**/*.html' },
-            { context: 'src/', from: 'imgs/**/*' }
-        ])
-    ],
-    module: {
-        rules: [{
-            test: /\.s?[ac]ss$/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                // 'style-loader', // Adiciona CSS a DOM injetando a tag <style>
-                'css-loader', // interpreta @import, url()...
-                'sass-loader',
+        new MiniCssExtractPlugin({
+            filename: 'estilo.css'
+        }),
+
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: 'src/index.html',
+                    to: 'index.html'
+                },
+                {
+                    from: 'src/imgs',
+                    to: 'imgs',
+                    noErrorOnMissing: true
+                }
             ]
-        }, {
-            test: /\.(png|svg|jpg|gif)$/,
-            use: ['file-loader']
-        }, {
-            test: /.(ttf|otf|eot|svg|woff(2)?)$/,
-            use: ['file-loader']
-        }]
+        })
+    ],
+
+    module: {
+        rules: [
+            {
+                test: /\.s?[ac]ss$/i,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'sass-loader'
+                ]
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/i,
+                type: 'asset/resource'
+            },
+            {
+                test: /\.(ttf|otf|eot|woff2?|svg)$/i,
+                type: 'asset/resource'
+            }
+        ]
     }
 }
